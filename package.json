@@ -2,7 +2,7 @@
   "name": "finance_quickscope",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/aniketw1/Ticker_Quickscope.git",
+  "homepage": "https://aniketw1.github.io",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
@@ -18,7 +18,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -b master -d build",
     "start": "PORT=3006 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
