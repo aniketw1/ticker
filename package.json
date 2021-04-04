@@ -2,7 +2,7 @@
   "name": "finance_quickscope",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/aniketw1/Ticker_Quickscope",
+  "homepage": "https://github.com/aniketw1/Ticker_Quickscope.git",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
