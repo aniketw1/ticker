@@ -8,7 +8,7 @@ function App(props) {
   const tickers = ['tsla', 'msft'];
   const newsItems = tickers.map((ticker) =>   
     <div className="news1">
-      <h3 id="news-0">
+      <h3 className="news-0">
         {ticker} News
       </h3>
       <News name={ticker}/>

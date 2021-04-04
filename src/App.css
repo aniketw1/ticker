@@ -40,16 +40,16 @@ ul {
   flex:content;
   flex-direction: column;
   float: right;
-  overflow:visible;
+  overflow:hidden;
   position:relative;
 }
 
-#news-0{
-  position: fixed;
+.news-0{
+  position: relative;
   border: 3px solid rgb(7, 42, 73);
 }
-#news-0:hover{
-  position: fixed;
+.news-0:hover{
+  position: relative;
   background-color: 3px solid rgb(7, 42, 73);
 }
 
@@ -109,6 +109,7 @@ ul {
   padding-left: 0;
   margin-right: 0;
   margin-left: 0;  
+  z-index: 2;
 }
 .nvl{
   margin-left: 40%;

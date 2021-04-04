@@ -57,7 +57,7 @@ class Stock extends Component{
                 marker: {color: 'red'},
               }
             ]}
-            layout={{width: 720, height: 440, title: `${this.state.query} Price For The Past Year`}}
+            layout={{width: 900, height: 600, title: `${this.state.query} Price For The Past Year`}}
           />
         );
     }
