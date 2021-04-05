@@ -33,6 +33,11 @@ ul {
   width: 100%;
 
 }
+
+.news1 > h3 {
+  position: absolute;
+  background-color: #ffb;
+}
 .news_panel{
   /* max-height: 200px; */
   background: #feb;
@@ -41,16 +46,20 @@ ul {
   flex-direction: column;
   float: right;
   overflow:hidden;
-  position:relative;
+  position:absolute;
 }
 
-.news-0{
-  position: relative;
+.news1{
   border: 3px solid rgb(7, 42, 73);
 }
-.news-0:hover{
-  position: relative;
-  background-color: 3px solid rgb(7, 42, 73);
+.news1:hover{
+  background-color: rgb(139, 20, 75);
+}
+
+.wrapBtn{
+  display: flex;
+  justify-content: space-between;
+  
 }
 
 .ticker_opt{
@@ -74,7 +83,7 @@ ul {
 
 .test{
   padding-left: 4%;
-  width: 70%;
+  /* width: 70%; */
 }
 .test1{
   width: 30%;

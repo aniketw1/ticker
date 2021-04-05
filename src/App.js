@@ -29,16 +29,18 @@ function App() {
   //Mapping tickers to react Stock components
   const stockitems = tickers.map(ticker =>  ( 
     <div className="stocks1">
-      <button
-        type="button"
-        className="btn btn__danger ticker_opt"
-        onClick={() => deleteTask(ticker.id)}
-        >
-        Delete <span className="visually-hidden">{ticker.name}</span>
-      </button>
-      <h3 id={ticker.id} className="ticker_opt">
-        {ticker.name} Price
-      </h3>
+      <div className="wrapBtn">
+        <h3 id={ticker.id} className="ticker_opt">
+          {ticker.name} Price
+        </h3>
+        <button
+          type="button"
+          className="btn btn__danger ticker_opt"
+          onClick={() => deleteTask(ticker.id)}
+          >
+          Delete <span className="visually-hidden">{ticker.name}</span>
+        </button>
+      </div>
       <Stock name={ticker.name} key={ticker.id}/>
     </div>
   ));
