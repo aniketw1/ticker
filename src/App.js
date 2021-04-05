@@ -17,7 +17,7 @@ function App() {
 
   function addTask(name) {
     const newTask = { id: "todo-" + nanoid(), name: name};
-    setTickers([...tickers, newTask]);
+    setTickers([newTask, ...tickers]);
     console.log('all', tickers);
   }
 
@@ -51,7 +51,9 @@ function App() {
         {ticker.name} News
       </h3>
       <News name={ticker.name}/>
+      <div className="line_break"></div>
     </div>
+
   );
 
   
@@ -86,7 +88,7 @@ function App() {
         <div className="test1 child">
           <div className="news_panel ">
             <h2 id="list-heading">
-              NEWS
+              <strong>NEWS</strong>
             </h2>
             {newsitems}
           </div>
