@@ -53,6 +53,12 @@ ul {
   background-color: 3px solid rgb(7, 42, 73);
 }
 
+.ticker_opt{
+  display: flex;
+  align-items: baseline;
+  margin: 0px auto;
+}
+
 .stack-small{
   float: right;
   border: solid 5px rgb(44, 42, 73);
