@@ -9,19 +9,37 @@ import { nanoid } from "nanoid";
 
 const tickersInit = [{id: 0, name:'msft'}, {id:1, name:'tsla'}];
 
-
+var queries = new Set();
+queries.add('msft')
+queries.add('tsla')
 function App() {
 
   const [tickers, setTickers] = useState(tickersInit);
   const [search, setSearch] = useState('');
 
+  
+
   function addTask(name) {
-    const newTask = { id: "todo-" + nanoid(), name: name};
-    setTickers([newTask, ...tickers]);
-    console.log('all', tickers);
+    if(queries.has(name)){
+      alert("This stock has already been added")
+    }
+    
+    else{
+      const newTask = { id: "todo-" + nanoid(), name: name};
+      queries.add(name)
+      console.log("adding " + name)
+      setTickers([newTask, ...tickers]);
+      console.log('all', tickers);
+      // console.log(queries)
+    }
+    
   }
 
-  function deleteTask(id){
+  function deleteTask(id,name){
+    console.log("deleting " + name)
+    queries.delete(name)
+    console.log(queries)
+    
     const remainingTasks = tickers.filter(ticker => id !== ticker.id);
     setTickers(remainingTasks);
   }
@@ -36,7 +54,7 @@ function App() {
         <button
           type="button"
           className="btn btn__danger ticker_opt"
-          onClick={() => deleteTask(ticker.id)}
+          onClick={() => deleteTask(ticker.id,ticker.name)}
           >
           Delete <span className="visually-hidden">{ticker.name}</span>
         </button>
