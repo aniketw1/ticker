@@ -12,12 +12,13 @@ const tickersInit = [{id: 0, name:'msft'}, {id:1, name:'tsla'}];
 var queries = new Set();
 queries.add('msft')
 queries.add('tsla')
+
+var favorites = new Set();
+
 function App() {
 
   const [tickers, setTickers] = useState(tickersInit);
   const [search, setSearch] = useState('');
-
-  
 
   function addTask(name) {
     if(queries.has(name)){
@@ -44,6 +45,18 @@ function App() {
     setTickers(remainingTasks);
   }
 
+  function addFav(name) {
+    console.log("Adding fav...");
+    favorites.add(name);
+    console.log(favorites);
+  }
+
+  function showFavs() {
+    for (let item of favorites.values()) {
+      
+    }
+  }
+
   //Mapping tickers to react Stock components
   const stockitems = tickers.map(ticker =>  ( 
     <div className="stocks1">
@@ -51,6 +64,9 @@ function App() {
         <h3 id={ticker.id} className="ticker_opt">
           {ticker.name} Price
         </h3>
+        <button type="button" id="btn_favorites" onClick={() => addFav(ticker.name)}> 
+          Add to favorites
+        </button>
         <button
           type="button"
           className="btn btn__danger ticker_opt"
@@ -82,7 +98,7 @@ function App() {
       <div className="navbar">
         <h1>TICKER QUICKSCOPE</h1>
         <div className="navbar_left">
-          <button className="btn btn__primary btn__lg nvl"><h5>Favorites</h5></button>
+          <button className="btn btn__primary btn__lg nvl" onClick={() => showFavs()}><h5>Favorites</h5></button>
           <button className="btn btn__primary btn__lg nvl"><h5>Markets</h5></button>
           
         </div>
