@@ -16,15 +16,14 @@ class Stock extends Component{
     }
 
 
-
-    fetchStock(query){
+    async fetchStock(query){
         const that = this;
         const API_KEY = 'NT2TLJEMKK8741F3';
         let API_CALL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${query}&apikey=${API_KEY}`
         let stockChartX = [];
         let stockChartY = [];
 
-        fetch(API_CALL)
+        await fetch(API_CALL)
             .then(
                 function(response){
                     return response.json();
@@ -33,22 +32,15 @@ class Stock extends Component{
             .then(
                 function(data){
                     console.log('etf', data);
-                    for(var i in data){
-                        if(i === "Error Message"){
-                            alert("pls chech ticker symbol");
-                
-                        }
-                    }
                     for(var key in data['Time Series (Daily)']){
                         stockChartX.push(key);
                         stockChartY.push(data['Time Series (Daily)'][key]['1. open']);
                     }
-
+                
                     that.setState({
                         time: stockChartX,
                         price: stockChartY
                     });
-                    console.log('kodak', stockChartY);
                 }
             )
     }
@@ -70,5 +62,6 @@ class Stock extends Component{
         );
     }
 }
+
 
 export default Stock;
