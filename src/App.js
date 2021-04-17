@@ -6,19 +6,23 @@ import News from './components/News.js'
 import Stock from "./components/Stock.js";
 import Form from "./components/Form.js";
 import { nanoid } from "nanoid";
+import { TabsContext } from "./accountContext";
 
 const tickersInit = [{id: 0, name:'msft'}, {id:1, name:'tsla'}];
 
 var queries = new Set();
+var queriesFavorites = new Set();
 queries.add('msft')
 queries.add('tsla')
 
-var favorites = new Set();
+var favorites = [];
+var normal = [];
 
 function App() {
 
   const [tickers, setTickers] = useState(tickersInit);
   const [search, setSearch] = useState('');
+  const [active, setActive] = useState("normal");
 
   function addTask(name) {
     if(queries.has(name)){
@@ -46,15 +50,26 @@ function App() {
   }
 
   function addFav(name) {
-    console.log("Adding fav...");
-    favorites.add(name);
-    console.log(favorites);
+
+    if(queriesFavorites.has(name)){
+      alert("This stock has already been added to your Favorites")
+    }
+    
+    else{
+      console.log("Adding fav...");
+      favorites.push({id: nanoid(), name: name});
+      console.log(favorites);
+    }
   }
 
   function showFavs() {
-    for (let item of favorites.values()) {
-      
-    }
+    // for (let item of favorites.values()) {     
+    // }
+    setActive("favorites");
+  }
+
+  function showNormal() {
+    setActive("normal");
   }
 
   //Mapping tickers to react Stock components
@@ -79,6 +94,24 @@ function App() {
     </div>
   ));
 
+  const stockitems1 = favorites.map(ticker =>  ( 
+    <div className="stocks1">
+      <div className="wrapBtn">
+        <h3 id={ticker.id} className="ticker_opt">
+          {ticker.name} Price
+        </h3>
+        <button
+          type="button"
+          className="btn btn__danger ticker_opt"
+          onClick={() => deleteTask(ticker.id,ticker.name)}
+          >
+          Delete <span className="visually-hidden">{ticker.name}</span>
+        </button>
+      </div>
+      <Stock name={ticker.name} key={ticker.id}/>
+    </div>
+  ));
+
   const newsitems = tickers.map((ticker) =>   
     <div className="news1">
       <h3>
@@ -90,49 +123,64 @@ function App() {
 
   );
 
-  
+
+  // const switchToFavorites = () => {
+  //   setActive("favorites");
+  // }
+  // const switchToMarkets = () => {
+  //   setActive("markets");
+  // }
+  // const switchToNormal = () => {
+  //   setActive("normal");
+  // }
+
+  // const contextValue = { switchToMarkets, switchToFavorites, switchToNormal };
 
   return (
-    <div className="todoapp stack-large">
+    // <TabsContext.Provider value={contextValue}>
+      <div className="todoapp stack-large">
 
-      <div className="navbar">
-        <h1>TICKER QUICKSCOPE</h1>
-        <div className="navbar_left">
-          <button className="btn btn__primary btn__lg nvl" onClick={() => showFavs()}><h5>Favorites</h5></button>
-          <button className="btn btn__primary btn__lg nvl"><h5>Markets</h5></button>
-          
+        <div className="navbar">
+          <h1>TICKER QUICKSCOPE</h1>
+          <div className="navbar_left">
+            <button className="btn btn__primary btn__lg nvl" onClick={() => showFavs()}><h5>Favorites</h5></button>
+            <button className="btn btn__primary btn__lg nvl"><h5>Markets</h5></button>
+            <button className="btn btn__primary btn__lg nvl" onClick={() => showNormal()}><h5>Normal</h5></button>
+
+          </div>
         </div>
-      </div>
-      <div className="bigP">
-      
-        <div className="test child">
-          <Form addTask={addTask}/>
-      
-          <div className="charts child">
-            <ul
-              role="list"
-              className="todo-list stack-large stack-exception"
-              aria-labelledby="list-heading"
-            >
-              {stockitems}
-            </ul>
+        <div className="bigP">
+        
+          <div className="test child">
+            <Form addTask={addTask}/>
+        
+            <div className="charts child">
+              <ul
+                role="list"
+                className="todo-list stack-large stack-exception"
+                aria-labelledby="list-heading"
+              >
+                {/* {stockitems} */}
+                { active === "normal" && stockitems }
+                { active === "favorites" && stockitems1 }
+              </ul>
+              
+            </div>
+          </div>
+          <div className="test1 child">
+            <div className="news_panel ">
+              <h2 id="list-heading">
+                <strong>NEWS</strong>
+              </h2>
+              {newsitems}
+            </div>
             
           </div>
         </div>
-        <div className="test1 child">
-          <div className="news_panel ">
-            <h2 id="list-heading">
-              <strong>NEWS</strong>
-            </h2>
-            {newsitems}
-          </div>
-          
-        </div>
+
+
       </div>
-
-
-    </div>
-    
+    // </TabsContext.Provider>
   );
 }
 
