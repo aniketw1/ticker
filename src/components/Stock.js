@@ -15,6 +15,8 @@ class Stock extends Component{
         this.fetchStock(this.state.query);
     }
 
+
+
     fetchStock(query){
         const that = this;
         const API_KEY = 'NT2TLJEMKK8741F3';
@@ -31,6 +33,12 @@ class Stock extends Component{
             .then(
                 function(data){
                     console.log('etf', data);
+                    for(var i in data){
+                        if(i === "Error Message"){
+                            alert("pls chech ticker symbol");
+                
+                        }
+                    }
                     for(var key in data['Time Series (Daily)']){
                         stockChartX.push(key);
                         stockChartY.push(data['Time Series (Daily)'][key]['1. open']);
