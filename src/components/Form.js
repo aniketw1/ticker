@@ -19,7 +19,6 @@ function Form(props){
             )
             .then(
                 async function(data){
-                    console.log('fred: ', Object.keys(data).length);
                     if(Object.keys(data).length === 1){
                         alert("please check ticker symbol");
                         return Object.keys(data).length;
@@ -32,6 +31,7 @@ function Form(props){
             .then(
                 function(num){
                     setNumber(num);
+                    console.log("valid ticker", num);
                 }
             )
     }
@@ -40,11 +40,11 @@ function Form(props){
        setName(e.target.value);
     }
     
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
-        fetchStock(name);
+        console.log('requesting API..');
+        await fetchStock(name);
         if(number === 2){
-            console.log('future hndrx');
             props.addTask(name);
             setName("");
             setNumber(0);

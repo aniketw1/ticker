@@ -10,6 +10,11 @@ import { TabsContext } from "./accountContext";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { Marginer } from './components/marginer.jsx';
+import FormControl from '@material-ui/core/FormControl';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import { makeStyles } from '@material-ui/core/styles';
 
 const tickersInit = [{id: 0, name:'msft'}, {id:1, name:'tsla'}];
 
@@ -24,7 +29,7 @@ function App() {
 
   const [tickers, setTickers] = useState(tickersInit);
   const [favorites, setFavorites] = useState([]);
-  const [search, setSearch] = useState('');
+  const [searchTime, setSearchTime] = useState('e');
   const [active, setActive] = useState("normal");
 
   // function currentPrice(price){
@@ -84,21 +89,62 @@ function App() {
     setActive("normal");
   }
 
+  const handleChange = (event) => {
+    console.log('perkies calling', event.target.value)
+    setSearchTime(event.target.value);
+  };
+
+  const useStyles = makeStyles((theme) => ({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+  }));
+
+  const classes = useStyles();
+
   //Mapping tickers to react Stock components
   const stockitems = tickers.map(ticker =>  ( 
     <div className="stocks1">
       <Marginer direction="vertical" margin={70}/>
       <div className="wrapBtn">
-        <h3> 
-        <FavoriteIcon id="btn_favorites" onClick={() => addFav(ticker.name)}></FavoriteIcon>Add to favorites
-        </h3>
-        
-        <h3>
-          <DeleteForeverIcon id="deleteIcon"
-          onClick={() => deleteTask(ticker.id,ticker.name)}></DeleteForeverIcon>Delete <span className="visually-hidden">{ticker.name}</span>
-        </h3>
+        <div id="fav">
+          <h3> 
+          <FavoriteIcon id="btn_favorites" onClick={() => addFav(ticker.name)}></FavoriteIcon>Add to favorites
+          </h3>
+        </div>
+
+
+        <div>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-simple-select-label">Time Range</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={searchTime}
+              onChange={handleChange}
+            >
+              <MenuItem value={'a'}>Past Week</MenuItem>
+              <MenuItem value={'b'}>Past Month</MenuItem>
+              <MenuItem value={'c'}>Past 3 Months</MenuItem>
+              <MenuItem value={'d'}>Past 5 Months</MenuItem>
+              <MenuItem value={'e'}>Past Year</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+
+
+        <div id="del">
+          <h3>
+            <DeleteForeverIcon id="deleteIcon"
+            onClick={() => deleteTask(ticker.id,ticker.name)}></DeleteForeverIcon>Delete <span className="visually-hidden">{ticker.name}</span>
+          </h3>
+        </div>
       </div>
-      <Stock name={ticker.name} key={ticker.id}/>
+      <Stock name={ticker.name} key={ticker.id} type={searchTime}/>
     </div>
   ));
 
@@ -106,10 +152,12 @@ function App() {
     <div className="stocks1">
       <Marginer direction="vertical" margin={70}/>
       <div className="wrapBtn">
-        <h3>
-          <DeleteForeverIcon id="deleteIcon"
-          onClick={() => deleteFavorite(favorite.id,favorite.name)}></DeleteForeverIcon>Delete <span className="visually-hidden">{favorite.name}</span>
-        </h3>
+        <div id="del">
+          <h3>
+            <DeleteForeverIcon id="deleteIcon"
+            onClick={() => deleteFavorite(favorite.id,favorite.name)}></DeleteForeverIcon>Delete <span className="visually-hidden">{favorite.name}</span>
+          </h3>
+        </div>
       </div>
       <Stock name={favorite.name} key={favorite.id}/>
     </div>

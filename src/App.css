@@ -62,9 +62,11 @@ ul {
   margin: 5em;
 } */
 
-#btn_favorites:hover{
+#fav:hover #btn_favorites{
   color: #4CAF50;
 }
+
+
 #btn_favorites{
   width: 40px;
   height: 40px;
@@ -74,7 +76,7 @@ ul {
   width: 40px;
   height: 40px;
 }
-#deleteIcon:hover{
+#del:hover #deleteIcon{
   color: red;
 }
 
@@ -84,9 +86,6 @@ ul {
   
 }
 
-#bvb > title{
-  font-weight:bolder;
-}
 
 .ticker_opt{
   display: flex;
@@ -269,3 +268,39 @@ body {
 form{
   padding-top: 10%;
 }
+
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 15;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  z-index: 15;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block; z-index: 15;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
