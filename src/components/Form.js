@@ -4,6 +4,7 @@ import React, { useState } from "react";
 function Form(props){
 
     const [name, setName] = useState("");
+    const [number, setNumber] = useState(0);
 
     async function fetchStock(query){
         const API_KEY = 'NAXUQKS5O8AVX7G8';
@@ -18,13 +19,19 @@ function Form(props){
             )
             .then(
                 async function(data){
-                    for(var i in data){
-                        if(i === "Error Message"){
-                            alert("please check ticker symbol");
-                            return false;
-                        }
+                    console.log('fred: ', Object.keys(data).length);
+                    if(Object.keys(data).length === 1){
+                        alert("please check ticker symbol");
+                        return Object.keys(data).length;
                     }
-                    return true;
+                    else{
+                        return Object.keys(data).length;
+                    }
+                }
+            )
+            .then(
+                function(num){
+                    setNumber(num);
                 }
             )
     }
@@ -35,12 +42,14 @@ function Form(props){
     
     function handleSubmit(e){
         e.preventDefault();
-        if(fetchStock(name) === true){
+        fetchStock(name);
+        if(number === 2){
+            console.log('future hndrx');
             props.addTask(name);
             setName("");
+            setNumber(0);
         }
-        // props.addTask(name);
-        // setName("");
+
     }
 
    
