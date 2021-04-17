@@ -7,6 +7,8 @@ import Stock from "./components/Stock.js";
 import Form from "./components/Form.js";
 import { nanoid } from "nanoid";
 import { TabsContext } from "./accountContext";
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 const tickersInit = [{id: 0, name:'msft'}, {id:1, name:'tsla'}];
 
@@ -15,12 +17,12 @@ var queriesFavorites = new Set();
 queries.add('msft')
 queries.add('tsla')
 
-var favorites = [];
 var normal = [];
 
 function App() {
 
   const [tickers, setTickers] = useState(tickersInit);
+  const [favorites, setFavorites] = useState([]);
   const [search, setSearch] = useState('');
   const [active, setActive] = useState("normal");
 
@@ -49,6 +51,12 @@ function App() {
     setTickers(remainingTasks);
   }
 
+  function deleteFavorite(id, name){
+    queriesFavorites.delete(name);
+    let remainingFavorites = favorites.filter(favorite => id !== favorite.id);
+    setFavorites(remainingFavorites)
+  }
+
   function addFav(name) {
 
     if(queriesFavorites.has(name)){
@@ -61,6 +69,7 @@ function App() {
       console.log(favorites);
     }
   }
+
 
   function showFavs() {
     // for (let item of favorites.values()) {     
@@ -79,36 +88,31 @@ function App() {
         <h3 id={ticker.id} className="ticker_opt">
           {ticker.name} Price
         </h3>
-        <button type="button" id="btn_favorites" onClick={() => addFav(ticker.name)}> 
-          Add to favorites
-        </button>
-        <button
-          type="button"
-          className="btn btn__danger ticker_opt"
-          onClick={() => deleteTask(ticker.id,ticker.name)}
-          >
-          Delete <span className="visually-hidden">{ticker.name}</span>
-        </button>
+        <h3> 
+        <FavoriteIcon id="btn_favorites" onClick={() => addFav(ticker.name)}></FavoriteIcon>Add to favorites
+        </h3>
+        
+        <h3>
+          <DeleteForeverIcon id="deleteIcon"
+          onClick={() => deleteTask(ticker.id,ticker.name)}></DeleteForeverIcon>Delete <span className="visually-hidden">{ticker.name}</span>
+        </h3>
       </div>
       <Stock name={ticker.name} key={ticker.id}/>
     </div>
   ));
 
-  const stockitems1 = favorites.map(ticker =>  ( 
+  const stockitems1 = favorites.map(favorite =>  ( 
     <div className="stocks1">
       <div className="wrapBtn">
-        <h3 id={ticker.id} className="ticker_opt">
-          {ticker.name} Price
+        <h3 id={favorite.id} className="ticker_opt">
+          {favorite.name} Price
         </h3>
-        <button
-          type="button"
-          className="btn btn__danger ticker_opt"
-          onClick={() => deleteTask(ticker.id,ticker.name)}
-          >
-          Delete <span className="visually-hidden">{ticker.name}</span>
-        </button>
+        <h3>
+          <DeleteForeverIcon id="deleteIcon"
+          onClick={() => deleteFavorite(favorite.id,favorite.name)}></DeleteForeverIcon>Delete <span className="visually-hidden">{favorite.name}</span>
+        </h3>
       </div>
-      <Stock name={ticker.name} key={ticker.id}/>
+      <Stock name={favorite.name} key={favorite.id}/>
     </div>
   ));
 
