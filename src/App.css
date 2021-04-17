@@ -62,7 +62,21 @@ ul {
   margin: 5em;
 } */
 
+#btn_favorites:hover{
+  color: #4CAF50;
+}
+#btn_favorites{
+  width: 40px;
+  height: 40px;
+}
 
+#deleteIcon{
+  width: 40px;
+  height: 40px;
+}
+#deleteIcon:hover{
+  color: red;
+}
 
 .wrapBtn{
   display: flex;
