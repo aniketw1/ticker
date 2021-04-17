@@ -47,7 +47,7 @@ class Stock extends Component{
 
     render() {
         return (
-          <Plot id="bvb"
+          <Plot
             data={[
               {
                 x: this.state.time,
