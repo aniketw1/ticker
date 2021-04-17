@@ -9,6 +9,7 @@ import { nanoid } from "nanoid";
 import { TabsContext } from "./accountContext";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { Marginer } from './components/marginer.jsx';
 
 const tickersInit = [{id: 0, name:'msft'}, {id:1, name:'tsla'}];
 
@@ -25,6 +26,10 @@ function App() {
   const [favorites, setFavorites] = useState([]);
   const [search, setSearch] = useState('');
   const [active, setActive] = useState("normal");
+
+  // function currentPrice(price){
+
+  // }
 
   function addTask(name) {
     if(queries.has(name)){
@@ -72,8 +77,6 @@ function App() {
 
 
   function showFavs() {
-    // for (let item of favorites.values()) {     
-    // }
     setActive("favorites");
   }
 
@@ -84,10 +87,8 @@ function App() {
   //Mapping tickers to react Stock components
   const stockitems = tickers.map(ticker =>  ( 
     <div className="stocks1">
+      <Marginer direction="vertical" margin={70}/>
       <div className="wrapBtn">
-        <h3 id={ticker.id} className="ticker_opt">
-          {ticker.name} Price
-        </h3>
         <h3> 
         <FavoriteIcon id="btn_favorites" onClick={() => addFav(ticker.name)}></FavoriteIcon>Add to favorites
         </h3>
@@ -103,10 +104,8 @@ function App() {
 
   const stockitems1 = favorites.map(favorite =>  ( 
     <div className="stocks1">
+      <Marginer direction="vertical" margin={70}/>
       <div className="wrapBtn">
-        <h3 id={favorite.id} className="ticker_opt">
-          {favorite.name} Price
-        </h3>
         <h3>
           <DeleteForeverIcon id="deleteIcon"
           onClick={() => deleteFavorite(favorite.id,favorite.name)}></DeleteForeverIcon>Delete <span className="visually-hidden">{favorite.name}</span>

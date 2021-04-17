@@ -84,6 +84,10 @@ ul {
   
 }
 
+#bvb > title{
+  font-weight:bolder;
+}
+
 .ticker_opt{
   display: flex;
   align-items: baseline;

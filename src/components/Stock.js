@@ -47,7 +47,7 @@ class Stock extends Component{
 
     render() {
         return (
-          <Plot
+          <Plot id="bvb"
             data={[
               {
                 x: this.state.time,
@@ -57,7 +57,10 @@ class Stock extends Component{
                 marker: {color: 'red'},
               }
             ]}
-            layout={{width: 900, height: 600, title: `${this.state.query} Price For The Past Year`}}
+            layout={{width: 900, height: 600, title: `${this.state.query} Price Today: <b>$${this.state.price[this.state.price.length-1]}</b>`,
+            "titlefont": {
+              "size": 36,
+            }}}
           />
         );
     }
