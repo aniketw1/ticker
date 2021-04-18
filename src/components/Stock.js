@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Plot from 'react-plotly.js'
 
 class Stock extends Component{
@@ -10,9 +10,11 @@ class Stock extends Component{
             time: [],
             price: []
         }
+
+        // const [y_slice, setY_slice] = useState(state.y_slice);
     }
 
-    
+
     componentDidMount(){
         this.fetchStock(this.state.query);
     }
@@ -82,7 +84,7 @@ class Stock extends Component{
               marker: {color: 'red'},
             }
           ]}
-            layout={{width: 900, height: 600, title: `${this.state.query} Price Today: <b>$${this.state.price[this.state.price.length-1]}</b>`,
+            layout={{width: 900, height: 600, title: `${this.state.query} Price Today: <b>$${this.state.price[0]}</b>`,
             "titlefont": {
               "size": 36,
             }}}

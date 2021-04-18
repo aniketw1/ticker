@@ -6,12 +6,12 @@ function Form(props){
     const [name, setName] = useState("");
     const [number, setNumber] = useState(0);
 
-    async function fetchStock(query){
+     function fetchStock(query){
         const API_KEY = 'NAXUQKS5O8AVX7G8';
         let API_CALL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${query}&apikey=${API_KEY}`
  
 
-        await fetch(API_CALL)
+         fetch(API_CALL)
             .then(
                 async function(response){
                     return response.json();
@@ -49,6 +49,13 @@ function Form(props){
             setName("");
             setNumber(0);
         }
+
+
+        // let d = fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${name}&apikey=NAXUQKS5O8AVX7G8`).json().text();
+        // if( Object.keys(d).length > 1){
+        //     props.addTask(name);
+        //     setName("");
+        // }
 
     }
 

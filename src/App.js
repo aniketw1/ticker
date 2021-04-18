@@ -29,7 +29,7 @@ function App() {
 
   const [tickers, setTickers] = useState(tickersInit);
   const [favorites, setFavorites] = useState([]);
-  const [searchTime, setSearchTime] = useState('e');
+  const [searchTime, setSearchTime] = useState('b');
   const [active, setActive] = useState("normal");
 
   // function currentPrice(price){
@@ -81,6 +81,58 @@ function App() {
   }
 
 
+
+  function renderRefresh(){
+
+    tickers.map(ticker =>  ( 
+      <div className="stocks1">
+        <Marginer direction="vertical" margin={70}/>
+        <div className="wrapBtn">
+          <div id="fav">
+            <h3> 
+            <FavoriteIcon id="btn_favorites" onClick={() => addFav(ticker.name)}></FavoriteIcon>Add to favorites
+            </h3>
+          </div>
+  
+  
+          <div>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-simple-select-label">Time Range</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={searchTime}
+                onChange={handleChange}
+              >
+                <MenuItem value={'a'}>Past Week</MenuItem>
+                <MenuItem value={'b'}>Past Month</MenuItem>
+                <MenuItem value={'c'}>Past 3 Months</MenuItem>
+                <MenuItem value={'d'}>Past 5 Months</MenuItem>
+                <MenuItem value={'e'}>Past Year</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+  
+  
+          <div id="del">
+            <h3>
+              <DeleteForeverIcon id="deleteIcon"
+              onClick={() => deleteTask(ticker.id,ticker.name)}></DeleteForeverIcon>Delete <span className="visually-hidden">{ticker.name}</span>
+            </h3>
+          </div>
+        </div>
+        <Stock name={ticker.name} key={ticker.id} type={searchTime}/>
+      </div>
+    ));
+  }
+
+
+
+
+
+
+
+
   function showFavs() {
     setActive("favorites");
   }
@@ -92,6 +144,11 @@ function App() {
   const handleChange = (event) => {
     console.log('perkies calling', event.target.value)
     setSearchTime(event.target.value);
+    let copy = tickers;
+    let idx="asdfasfas";
+    const rTasks = tickers.filter(ticker => idx !== ticker.id);
+    setTickers(rTasks);
+    renderRefresh();
   };
 
   const useStyles = makeStyles((theme) => ({
@@ -175,17 +232,6 @@ function App() {
   );
 
 
-  // const switchToFavorites = () => {
-  //   setActive("favorites");
-  // }
-  // const switchToMarkets = () => {
-  //   setActive("markets");
-  // }
-  // const switchToNormal = () => {
-  //   setActive("normal");
-  // }
-
-  // const contextValue = { switchToMarkets, switchToFavorites, switchToNormal };
 
   return (
     // <TabsContext.Provider value={contextValue}>
@@ -195,8 +241,7 @@ function App() {
           <h1>TICKER QUICKSCOPE</h1>
           <div className="navbar_left">
             <button className="btn btn__primary btn__lg nvl" onClick={() => showFavs()}><h5>Favorites</h5></button>
-            <button className="btn btn__primary btn__lg nvl"><h5>Markets</h5></button>
-            <button className="btn btn__primary btn__lg nvl" onClick={() => showNormal()}><h5>Normal</h5></button>
+            <button className="btn btn__primary btn__lg nvl" onClick={() => showNormal()}><h5>Home</h5></button>
 
           </div>
         </div>

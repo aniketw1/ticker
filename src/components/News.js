@@ -15,14 +15,14 @@ class News extends React.Component{
         this.fetchNews(this.state.query);
     }
 
-    fetchNews(query){
+    async fetchNews(query){
 
         const API_KEY = 'JZ2cGukXpDFRSPmZubtZOUfV4EEa8_TA';
-        let API_CALL = `https://api.polygon.io/v1/meta/symbols/${query}/news?perpage=50&page=1&apiKey=JZ2cGukXpDFRSPmZubtZOUfV4EEa8_TA`
+        let API_CALL = `https://api.polygon.io/v1/meta/symbols/${query}/news?perpage=50&page=1&apiKey=pr1ltQbYe7bGpHMdruedWq8hnj7hZCD8`
         const that = this;
         let newsHeadline = [];
 
-        fetch(API_CALL)
+        await fetch(API_CALL)
             .then(
                 function(response){
                     return response.json();
