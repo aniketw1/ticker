@@ -6,12 +6,12 @@ function Form(props){
     const [name, setName] = useState("");
     const [number, setNumber] = useState(0);
 
-     function fetchStock(query){
+    async function fetchStock(query){
         const API_KEY = 'NAXUQKS5O8AVX7G8';
         let API_CALL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${query}&apikey=${API_KEY}`
  
 
-         fetch(API_CALL)
+        await fetch(API_CALL)
             .then(
                 async function(response){
                     return response.json();
@@ -19,6 +19,7 @@ function Form(props){
             )
             .then(
                 async function(data){
+                    console.log('fred: ', Object.keys(data).length);
                     if(Object.keys(data).length === 1){
                         alert("please check ticker symbol");
                         return Object.keys(data).length;
@@ -31,7 +32,6 @@ function Form(props){
             .then(
                 function(num){
                     setNumber(num);
-                    console.log("valid ticker", num);
                 }
             )
     }
@@ -40,21 +40,16 @@ function Form(props){
        setName(e.target.value);
     }
     
-    async function handleSubmit(e){
+    function handleSubmit(e){
         e.preventDefault();
-        console.log('requesting API..');
-        await fetchStock(name);
-        if(number === 2){
-            props.addTask(name);
-            setName("");
-            setNumber(0);
-        }
-
-
-        // let d = fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${name}&apikey=NAXUQKS5O8AVX7G8`).json().text();
-        // if( Object.keys(d).length > 1){
+        props.addTask(name);
+        setName("");
+        // fetchStock(name);
+        // if(number === 2){
+        //     console.log('future hndrx');
         //     props.addTask(name);
         //     setName("");
+        //     setNumber(0);
         // }
 
     }
